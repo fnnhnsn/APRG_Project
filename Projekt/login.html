@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <br>
+        Bitte loggen Sie sich mit Ihrem Benutzernamen und Ihrem Passwort ein.
+        <br>
+        <form action="/users/login" method="POST">
+            <table>
+                <tr>
+                    <td>
+                    <input type="text" name="username" placeholder="Benutzer">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <input type="password" name="password" placeholder="Passwort">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <button type="submit">Log-in</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

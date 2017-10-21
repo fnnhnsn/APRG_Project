@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            Registrierung
+        </title>
+    </head>
+    <body>
+        <h1>Registrierung </h1>
+        <form action="/users/register" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        Benutzername:
+                    </td>
+                    <td>
+                        <input type="text" name="username" placeholder = "Bsp: Fritz">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Passwort: 
+                    </td>
+                    <td>
+                        <input type="password" name="password" placeholder = "Ein Passwort Ihrer Wahl">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bitte das Passwort wiederholen:
+                    </td>
+                    <td>
+                        <input type="password" name="repPassword">
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Jetzt registrieren!</button>
+        </form>
+    </body>
+</html>

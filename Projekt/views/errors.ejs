@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Fehler</title>
+    </head>
+    <body>
+        Folgende Fehler sind aufgetreten:
+        <br>
+        <ul>
+            <% for(var i = 0; i < error.length; i++) { %>
+                <li><%= error[i]%></li>
+            <% } %>
+        </ul>
+        <br>
+        <a href="/">Zurück zum Start</a>
+    </body>
+</html>
