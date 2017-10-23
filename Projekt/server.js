@@ -50,6 +50,11 @@ app.get('/register', (request, response) => {
     response.sendFile(__dirname + '/register.html');
 });
 
+//Weiterleitung auf Impressum
+app.get('/impressum', (request, response) => {
+    response.sendFile(__dirname + '/impressum.html');
+});
+
 //Logik der Registierung; Sofern Benutzer vorhanden, oder Eingabe nicht korrekt, erhält der Nutzer eine Fehlermeldung
 app.post('/users/register', (request, response) => {
     const username = request.body.username;
