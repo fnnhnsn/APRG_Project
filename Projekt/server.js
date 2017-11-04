@@ -6,6 +6,8 @@ const app = express();
 //Initialisierung des Bodyparser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'));
+
 //init ejs
 app.set('view engine', 'ejs');
 
@@ -118,6 +120,7 @@ app.post('/users/login', (request, response) => {
             if (passwordHash.verify(password, result.password)) {
                 request.session.authenticated = true;
                 request.session.username = username;
+                request.session.userID =result._id;
                 response.redirect('/');
             } else {
                 errors.push('Das Passwort für diesen User stimmt nicht überein.');
@@ -138,3 +141,65 @@ app.get('/logout', (request, response) => {
 app.get('/rooms', (request, response) => {
     response.render('roomsOverview', {})
 });
+
+//Weiterleiten zur Benutzerübersicht
+app.get('/userInformation', (request, response) => {
+    
+        db.collection(DB_COLLECTION).findOne({'_id': request.session.userID}, (error, result) => {
+            if(error) return console.log(error);
+    
+            response.render('user', {
+                'username': request.session.username,
+                'errors': []
+            });
+        });
+    });
+
+//Weiterleiten zum Ändern des Passwortes
+app.get('/user/password/update/', (request, response) => {
+    
+        db.collection(DB_COLLECTION).findOne({'_id': request.session.userID}, (error, result) => {
+            if(error) return console.log(error);
+    
+            response.render('update', {
+                'username': result.username,
+                'password': result.password,
+                'email': result.email,
+                'errors': []
+            });
+        });
+    });
+    
+    //Passwort ändern
+    app.post('/user/password/update/finished', (request, response) => {
+        const newPW = request.body.password;
+        const repeatNewPW = request.body.password;
+        const newPWencrypted = passwordHash.generate(newPW);
+    
+        let updateErrors = [];
+    
+        if(newPW == "" || repeatNewPW == "")
+            updateErrors.push('Bitte alles ausfüllen!');
+        if(newPW != repeatNewPW)
+            updateErrors.push('Die Passwörter stimmen nicht überein.');
+        
+        if(updateErrors.length > 0)
+        {
+            response.render('update', {
+                'password': newPW,
+                'errors': updateErrors
+            });
+    
+            return;
+        }
+    
+        const newUser = {
+            'username': request.session.username,
+            'password': newPWencrypted,      
+        };
+    
+        db.collection(DB_COLLECTION).update({'_id': request.session.userID}, newUser , (error, result) => {
+            response.redirect('/');
+
+        });
+    });

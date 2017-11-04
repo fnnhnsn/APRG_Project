@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Benutzerübersicht</title>
+    </head>
+    <body>
+        <h1>Verwaltung</h1>
+        <br> 
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" value="<%= username %>" disabled/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" value="Beispiel" disabled/></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right;">
+                    <button onclick="updateUser()">Update User Information</button>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <a href="/logout">Ausloggen</a>
+        <script src="/js/handler.js"></script>
+    </body>
+</html>

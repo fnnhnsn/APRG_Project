@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Passwort ändern</title>
+    </head>
+    <body>
+        <h1>Passwort ändern</h1>
+        <br>
+        Hier können Sie nun ihr Passwort ändern.
+        <br>
+        <form action="/user/password/update/finished" method="POST">
+            <table> 
+                <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="username" value="<%= username %>" disabled/></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password" placeholder="Bitte ihr Passwort eingeben." /></td>
+                </tr>
+                <tr>
+                    <td>Repeat Password:</td>
+                    <td><input type="password" name="repPassword" placeholder="Passwort wiederholen." /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right;">
+                        <button type="submit">Passwort ändern</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br>
+       
+    </body>
+</html>
