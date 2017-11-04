@@ -34,7 +34,7 @@ app.listen(3000, () => {
 //Entweder Index, wenn Nutzer nicht eingeloggt, oder Startseite, wenn Nutzer eingeloggt
 app.get('/', (request, response) => {
     if (request.session.authenticated) {
-        response.render('content', {'username': request.session.username});
+        response.render('start', {'username': request.session.username});
     } else {
         response.sendFile(__dirname + '/index.html');
     }   
@@ -133,3 +133,8 @@ app.get('/logout', (request, response) => {
     delete request.session.username;
     response.redirect('/');
 }); 
+
+//Weiterleiten zur Raumbuchungsseite
+app.get('/rooms', (request, response) => {
+    response.render('roomsOverview', {})
+});
