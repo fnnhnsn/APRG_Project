@@ -205,3 +205,9 @@ app.get('/user/password/update/', (request, response) => {
 
         });
     });
+
+    //Weiterleiten zur Raumbuchung Erdgeschoss
+
+    app.get('/ground', (request, response) => {
+        response.render('ground', {});
+    });
