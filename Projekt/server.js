@@ -6,6 +6,8 @@ const app = express();
 //Initialisierung des Bodyparser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
+
+//Nutzung des public Ordners
 app.use(express.static('public'));
 
 //init ejs
