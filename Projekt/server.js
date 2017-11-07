@@ -19,6 +19,12 @@ const Db = require('tingodb')().Db;
 const db = new Db(__dirname + '/tingodb', {});
 const ObjectId = require('tingodb')().ObjectID;
 
+//Tingodb setup der Raumbuchung
+const DB_COLLECTION2 = 'rooms';
+const Db2 = require('tingodb')().Db;
+const db2 = new Db(__dirname + '/tingodb', {});
+const ObjectId2 = require('tingodb')().ObjectID;
+
 //Session setup
 const session = require('express-session');
 app.use(session({
@@ -52,6 +58,11 @@ app.get('/login', (request, response) => {
 //Register
 app.get('/register', (request, response) => {
     response.sendFile(__dirname + '/register.html');
+});
+
+//Testseite 2. Datenbank
+app.get('/test', (request, response) => {
+    response.sendFile(__dirname + '/test.html');
 });
 
 //Weiterleitung auf Impressum
@@ -101,6 +112,24 @@ app.post('/users/register', (request, response) => {
                 response.render('errors', {'error': errors});
             }
         } 
+    });
+});
+
+//Testregistrierung
+app.post('/users/test', (request, response) => {
+    const testUsername = request.body.testUsername;
+    const testPassword = request.body.testPassword;
+    const testRepPassword = request.body.testRepPassword;
+
+    const newTestUser = {
+        'testUsername': testUsername,
+        'TestPassword': testPassword
+    }
+    
+    db2.collection(DB_COLLECTION2).save(newTestUser, (error, result) => {
+    if (error) return console.log(error);
+        console.log('user added to database');
+        response.redirect('/');
     });
 });
 

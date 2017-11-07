@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            Testregister
+        </title>
+    </head>
+    <body>
+        <h1>Testregister </h1>
+        <form action="/users/test" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        Benutzername:
+                    </td>
+                    <td>
+                        <input type="text" name="testUsername" placeholder = "Bsp: Fritz">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Passwort: 
+                    </td>
+                    <td>
+                        <input type="password" name="testPassword" placeholder = "Ein Passwort Ihrer Wahl">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bitte das Passwort wiederholen:
+                    </td>
+                    <td>
+                        <input type="password" name="testRepPassword" placeholder = "Bitte Ihr Passwort wiederholen">
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Testregistrierung!</button>
+        </form>
+        <p>
+            <a href = "/">
+            <img src = "/images/haw.png" alt = "HAW Logo" width = "10%" height = "10%"/>
+            </a>
+        </p>
+    </body>
+</html>
