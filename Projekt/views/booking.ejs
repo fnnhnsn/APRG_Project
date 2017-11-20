@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+            <a href = "/">
+            <img src = "/images/haw.png" alt = "HAW Logo" width = "10%" height = "10%"/>
+            </a>
+            <br>
+        <title>Raum buchen</title>
+    </head>
+    <body>
+        <h1>Raum buchen </h1>
+        <br>
+        <form action="/user/booking/finished" method="POST">
+            <table> 
+                <tr>
+                    <td>Benutzername:</td>
+                    <td><input type="text" name="username" value="<%=username%>" disabled/></td>
+                </tr>
+                <tr>
+                    <td>Raumnummer:</td>
+                    <td><input type="text" name="roomNumber" placeholder="z.B. E49" /></td>
+                </tr>
+                    <td colspan="2" style="text-align: right;">
+                        <button type="submit">Raum reservieren</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

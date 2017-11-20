@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            Testcanvas
+        </title>
+    </head>
+    <body>
+        <h1>Testcanvas </h1>
+        <script>
+            var img = document.getElementById("myImgId");
+            var c = document.getElementById("myCanvas");
+            c.style.position = "absolute";
+            c.style.left = img.offsetLeft;
+            c.style.top = img.offsetTop;
+
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(100, 75, 10, 0, Math.PI * 2, true);
+            ctx.stroke();
+        </script>
+
+        <map name = "workmap">
+            <area shape = "rect" coords = "280,142,870,685" alt = "E39" button onclick ="test2()">
+        </map>
+
+        <script>
+            function Draw(){
+                var img = document.getElementById("theImg");
+                var cnvs = document.getElementById("myCanvas");
+                
+                cnvs.style.position = "absolute";
+                cnvs.style.left = img.offsetLeft + "px";
+                cnvs.style.top = img.offsetTop + "px";
+                
+                var ctx = cnvs.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(250, 210, 100, 0, 2 * Math.PI, false);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#00ff00';
+                ctx.stroke();
+            }
+        </script>
+        <div>
+            <input id='draw-btn' type='button' value='Draw' onclick='Draw()' />
+        </div>
+              <img id='theImg' src='/images/erdgeschoss.png' usemap = "#workmap">
+              <canvas id='myCanvas' width='536px' height='536px'></canvas>
+            <a href = "/">
+            <img  src = "/images/haw.png" alt = "HAW Logo"/>
+            </a>
+        </p>
+    </body>
+</html>

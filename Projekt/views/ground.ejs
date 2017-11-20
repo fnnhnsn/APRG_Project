@@ -10,13 +10,17 @@
     <body>
         <h1>Erdgeschoss </h1>
         <br>
-        <img src = "/images/erdgeschoss.png" alt = "Erdgeschoss Finkenau" width = "90%" height = "45%"/>
-        </a>
+        <img id='theImg' src = "/images/erdgeschoss.png" alt = "Erdgeschoss Finkenau" usemap = "#workmap" width = "1000" height = "550"/>
+        <map name = "workmap">
+            <area shape = "rect" coords = "480,442,570,485" alt = "E39" button onclick ="test()">
+        </map>
         <br>
         <a href ="/rooms">Raumbuchung</a>
         <br>
         <a href = "/userInformation">Benutzerübersicht</a>
         <br>
         <a href="/logout">Ausloggen</a>
+        <script src="/js/handler.js"></script>
+        <canvas id='myCanvas' width="200" height="393"></canvas>        
     </body>
 </html>

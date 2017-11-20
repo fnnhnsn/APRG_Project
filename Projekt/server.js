@@ -65,6 +65,11 @@ app.get('/test', (request, response) => {
     response.sendFile(__dirname + '/test.html');
 });
 
+//Testseite 2
+app.get('/test2', (request, response) => {
+    response.render('test2', {});
+});
+
 //Weiterleitung auf Impressum
 app.get('/impressum', (request, response) => {
     response.sendFile(__dirname + '/impressum.html');
@@ -223,6 +228,9 @@ app.get('/user/password/update/', (request, response) => {
     
             return;
         }
+        else {
+            response.render('errors', {'error': updateErrors});
+        }
     
         const newUser = {
             'username': request.session.username,
@@ -239,4 +247,45 @@ app.get('/user/password/update/', (request, response) => {
 
     app.get('/ground', (request, response) => {
         response.render('ground', {});
+    });
+
+    //Öffnen des Raumbuchungsfensters und Weitergabe von Infos 
+
+    app.get('/booking', (request, response) => {
+
+        db.collection(DB_COLLECTION).findOne({'_id': request.session.userID}, (error, result) => {
+            if(error) return console.log(error);
+
+            response.render('booking', {
+            'username': request.session.username,
+            });
+        });
+    });
+
+    //Speichern des gebuchten Raumes
+    app.post('/user/booking/finished', (request, response) => {
+        const roomNr = request.body.roomNumber;
+
+        let bookingErrors = [];
+        
+        if(roomNr == "")
+        {
+            bookingErrors.push('Bitte alles ausfüllen!');
+            response.render('errors', {'error': bookingErrors});
+        }
+
+        else {
+
+            const newRoom = {
+                'user': request.session.username,
+                'room': roomNr
+            }
+            
+            db2.collection(DB_COLLECTION2).save(newRoom, (error, result) => {
+            if (error) return console.log(error);
+                console.log('user added to database');
+                response.render('ground', {
+                });
+            });
+        }       
     });
