@@ -90,7 +90,7 @@ function repaint(x,y) {
         {
             if(bg_ctx.isPointInPath(x,y)) 
             {
-                bg_ctx.fillStyle = "blue";
+                bg_ctx.fillStyle = "green";
                 hoveredRect = r;
                 r.interactable = true;
             }

@@ -120,7 +120,7 @@ app.post('/users/register', (request, response) => {
     });
 });
 
-//Testregistrierung
+/*//Testregistrierung
 app.post('/users/test', (request, response) => {
     const testUsername = request.body.testUsername;
     const testPassword = request.body.testPassword;
@@ -136,7 +136,7 @@ app.post('/users/test', (request, response) => {
         console.log('user added to database');
         response.redirect('/');
     });
-});
+});*/
 
 //Login; Wenn Benutzername oder Passwort falsch, Fehlermeldung
 app.post('/users/login', (request, response) => {
@@ -243,13 +243,13 @@ app.get('/user/password/update/', (request, response) => {
         });
     });
 
-    //Weiterleiten zur Raumbuchung Erdgeschoss
+    /* //Weiterleiten zur Raumbuchung Erdgeschoss
 
     app.get('/ground', (request, response) => {
         response.render('ground', {});
     });
 
-    //Öffnen des Raumbuchungsfensters und Weitergabe von Infos 
+   //Öffnen des Raumbuchungsfensters und Weitergabe von Infos 
 
     app.get('/booking', (request, response) => {
 
@@ -288,4 +288,46 @@ app.get('/user/password/update/', (request, response) => {
                 });
             });
         }       
+    });*/
+
+    //Öffnen der Raumbuchung, vorher Laden der Räume
+
+    app.post('/ground/load', (request,response) => {
+
+        var rects = [
+            {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
+            {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
+            {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
+            {x:173, y:393, w:41, h:42, roomname:'e30', status: 'free', interactable: false},
+            {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
+            {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
+        ];    
+
+        let i = 0;
+        let saveRoom;
+        while((r = rects[i]) <= rects.length) {
+
+            saveRoom = {
+                'x': rects[i].x,
+                'y': rects[i].y,
+                'w': rects[i].w,
+                'h': rects[i].h,
+                'roomname': rects[i].roomname,
+                'status': rects[i].status,
+                'interactable': rects[i].interactable
+            }
+        
+            db2.collection(DB_COLLECTION2).findOne({'roomname': saveRoom.roomname}, (error, result) => {
+                if (result = null) {
+                    
+                    console.log('Keiner gefunden.');
+                    db2.collection(DB_COLLECTION2).save(saveRoom, (error, result) => {
+                        if (error) return console.log(error);
+                        console.log('room added to database');
+                    })  
+                }
+            })
+            i++;
+        };
+        response.render('ground', {});        
     });
