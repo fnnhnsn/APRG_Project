@@ -180,7 +180,7 @@ app.get('/logout', (request, response) => {
 
 //get some server data for sending it to the client
 getData = function() {
-    return rooms;
+    return myRooms;
 }
 
 app.get('/getRooms', function(req, res) {
