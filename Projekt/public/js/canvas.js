@@ -3,7 +3,10 @@ var xSpan = document.getElementById('x');
 var ySpan = document.getElementById('y');
 
     //Store all "rooms" here --> rects []
-var rects = [
+    
+var rects = rooms;
+
+/*var rects = [
     {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
     {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
     {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
@@ -11,7 +14,7 @@ var rects = [
     {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
     {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
 
-];
+];*/
 
 var background_canvas;
 var bg_ctx;

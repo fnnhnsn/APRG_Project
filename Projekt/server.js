@@ -174,7 +174,58 @@ app.get('/logout', (request, response) => {
 }); 
 
 //Weiterleiten zur Raumbuchungsseite
-app.get('/rooms', (request, response) => {
+
+addRoom = function (roomData, callback) {
+    let saveRoom = {
+        'x': roomData.x,
+        'y': roomData.y,
+        'w': roomData.w,
+        'h': roomData.h,
+        'roomname': roomData.roomname,
+        'status': roomData.status,
+        'interactable': roomData.interactable
+    }
+
+    db2.collection(DB_COLLECTION2).findOne({'roomname': saveRoom.roomname}, (error, result) => {
+        console.log(result);
+        if (result == null) {
+            
+            console.log('Keiner gefunden.');
+            db2.collection(DB_COLLECTION2).save(saveRoom, (error, result) => {
+                if (error) return console.log(error);
+                console.log('room added to database');
+            })  
+        }
+    });
+
+    callback();
+}
+
+addRoomCallback = function (i, rects, response) {
+    i++;
+    if (i < rects.length) {
+        addRoom(rects[i], function () {
+            addRoomCallback(i, rects, response);
+        });            
+    } 
+}
+
+app.post('/rooms', (request, response) => {
+
+    var rects = [
+        {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
+        {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
+        {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
+        {x:173, y:393, w:41, h:42, roomname:'e30', status: 'free', interactable: false},
+        {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
+        {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
+    ];
+
+    let i = 0;
+    addRoom(rects[i], function () {
+       addRoomCallback(i, rects, response);
+    });
+
     response.render('roomsOverview', {})
 });
 
@@ -243,91 +294,18 @@ app.get('/user/password/update/', (request, response) => {
         });
     });
 
-    /* //Weiterleiten zur Raumbuchung Erdgeschoss
-
-    app.get('/ground', (request, response) => {
-        response.render('ground', {});
-    });
-
-   //Öffnen des Raumbuchungsfensters und Weitergabe von Infos 
-
-    app.get('/booking', (request, response) => {
-
-        db.collection(DB_COLLECTION).findOne({'_id': request.session.userID}, (error, result) => {
-            if(error) return console.log(error);
-
-            response.render('booking', {
-            'username': request.session.username,
-            });
-        });
-    });
-
-    //Speichern des gebuchten Raumes
-    app.post('/user/booking/finished', (request, response) => {
-        const roomNr = request.body.roomNumber;
-
-        let bookingErrors = [];
-        
-        if(roomNr == "")
-        {
-            bookingErrors.push('Bitte alles ausfüllen!');
-            response.render('errors', {'error': bookingErrors});
-        }
-
-        else {
-
-            const newRoom = {
-                'user': request.session.username,
-                'room': roomNr
-            }
-            
-            db2.collection(DB_COLLECTION2).save(newRoom, (error, result) => {
-            if (error) return console.log(error);
-                console.log('user added to database');
-                response.render('ground', {
-                });
-            });
-        }       
-    });*/
-
     //Öffnen der Raumbuchung, vorher Laden der Räume
+    
 
     app.post('/ground/load', (request,response) => {
 
-        var rects = [
-            {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
-            {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
-            {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
-            {x:173, y:393, w:41, h:42, roomname:'e30', status: 'free', interactable: false},
-            {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
-            {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
-        ];    
-
-        let i = 0;
-        let saveRoom;
-        while((r = rects[i]) <= rects.length) {
-
-            saveRoom = {
-                'x': rects[i].x,
-                'y': rects[i].y,
-                'w': rects[i].w,
-                'h': rects[i].h,
-                'roomname': rects[i].roomname,
-                'status': rects[i].status,
-                'interactable': rects[i].interactable
-            }
+        let rooms;
+        db2.collection(DB_COLLECTION2).find().toArray(function (err, result) {
+            if (err) return console.log(err);
+            rooms = result; 
+            console.log("Ab hier beginnen die rooms:" + rooms);
+        }); 
+        console.log("Ab hier beginnen die rooms:" + rooms);
         
-            db2.collection(DB_COLLECTION2).findOne({'roomname': saveRoom.roomname}, (error, result) => {
-                if (result = null) {
-                    
-                    console.log('Keiner gefunden.');
-                    db2.collection(DB_COLLECTION2).save(saveRoom, (error, result) => {
-                        if (error) return console.log(error);
-                        console.log('room added to database');
-                    })  
-                }
-            })
-            i++;
-        };
-        response.render('ground', {});        
+        response.render('ground', {});
     });
