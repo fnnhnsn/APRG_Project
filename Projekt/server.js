@@ -297,7 +297,7 @@ app.get('/user/password/update/', (request, response) => {
     //Öffnen der Raumbuchung, vorher Laden der Räume
     
 
-    app.post('/ground/load', (request,response) => {
+    app.get('/ground/load', (request,response) => {
 
         let rooms;
         db2.collection(DB_COLLECTION2).find().toArray(function (err, result) {
