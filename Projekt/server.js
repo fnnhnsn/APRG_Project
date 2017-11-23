@@ -41,6 +41,9 @@ app.listen(3000, () => {
     console.log('Listening to Port 3000');
 });
 
+//Globale Variable für Übergabe der Canvasdaten
+let myRooms = 0;
+
 //Entweder Index, wenn Nutzer nicht eingeloggt, oder Startseite, wenn Nutzer eingeloggt
 app.get('/', (request, response) => {
     if (request.session.authenticated) {
@@ -173,6 +176,17 @@ app.get('/logout', (request, response) => {
     response.redirect('/');
 }); 
 
+//Funktionen zum Senden der Canvasdaten
+
+//get some server data for sending it to the client
+getData = function() {
+    return rooms;
+}
+
+app.get('/getRooms', function(req, res) {
+    res.send(getData());
+});
+
 //Weiterleiten zur Raumbuchungsseite
 
 addRoom = function (roomData, callback) {
@@ -203,31 +217,33 @@ addRoom = function (roomData, callback) {
 
 addRoomCallback = function (i, rects, response) {
     i++;
-    if (i < rects.length) {
-        addRoom(rects[i], function () {
-            addRoomCallback(i, rects, response);
+if (i < rects.length) {
+addRoom(rects[i], function () {
+addRoomCallback(i, rects, response);
         });            
-    } 
+    } else {
+db2.collection(DB_COLLECTION2).find().toArray(function (error, result) {
+if (error) return console.log(error);
+          myRooms = result;
+response.render('roomsOverview', {})
+      });
+    }
 }
 
 app.post('/rooms', (request, response) => {
-
     var rects = [
-        {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
-        {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
-        {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
-        {x:173, y:393, w:41, h:42, roomname:'e30', status: 'free', interactable: false},
-        {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
-        {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
-    ];
-
+            {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false},
+            {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false},
+            {x:163, y:393, w:9,  h:31, roomname:'e29', status: 'free', interactable: false},
+            {x:173, y:393, w:41, h:42, roomname:'e30', status: 'free', interactable: false},
+            {x:307, y:385, w:57, h:38, roomname:'e39', status: 'free', interactable: false}, 
+            {x:393, y:385, w:56, h:38, roomname:'e48', status: 'free', interactable: false},
+        ];
     let i = 0;
     addRoom(rects[i], function () {
-       addRoomCallback(i, rects, response);
+    addRoomCallback(i, rects, response);
+        });
     });
-
-    response.render('roomsOverview', {})
-});
 
 //Weiterleiten zur Benutzerübersicht
 app.get('/userInformation', (request, response) => {
@@ -298,14 +314,6 @@ app.get('/user/password/update/', (request, response) => {
     
 
     app.get('/ground/load', (request,response) => {
-
-        let rooms;
-        db2.collection(DB_COLLECTION2).find().toArray(function (err, result) {
-            if (err) return console.log(err);
-            rooms = result; 
-            console.log("Ab hier beginnen die rooms:" + rooms);
-        }); 
-        console.log("Ab hier beginnen die rooms:" + rooms);
         
         response.render('ground', {});
     });
