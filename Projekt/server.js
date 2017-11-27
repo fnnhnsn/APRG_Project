@@ -226,7 +226,8 @@ addRoomCallback(i, rects, response);
 db2.collection(DB_COLLECTION2).find().toArray(function (error, result) {
 if (error) return console.log(error);
         myRooms = result;
-        response.render('roomsOverview', {})
+        response.render('roomsOverview', {})      
+        
       });
     }
 }
