@@ -60,16 +60,6 @@ app.get('/register', (request, response) => {
     response.sendFile(__dirname + '/register.html');
 });
 
-//Testseite 2. Datenbank
-app.get('/test', (request, response) => {
-    response.sendFile(__dirname + '/test.html');
-});
-
-//Testseite 2
-app.get('/test2', (request, response) => {
-    response.render('test2', {});
-});
-
 //Weiterleitung auf Impressum
 app.get('/impressum', (request, response) => {
     response.sendFile(__dirname + '/impressum.html');
