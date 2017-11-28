@@ -202,18 +202,21 @@ addRoom = function (roomData, callback) {
     }
 
     db2.collection(DB_COLLECTION2).findOne({'roomname': saveRoom.roomname}, (error, result) => {
-        console.log(result);
+        //console.log(result);
         if (result == null) {
             
-            console.log('Keiner gefunden.');
+            //console.log('Keiner gefunden.');
             db2.collection(DB_COLLECTION2).save(saveRoom, (error, result) => {
                 if (error) return console.log(error);
-                console.log('room added to database');
+                //console.log('room added to database');
+
+                callback();
             })  
         }
+        else
+            callback();
     });
 
-    callback();
 }
 
 addRoomCallback = function (i, rects, response) {
@@ -226,8 +229,7 @@ addRoomCallback(i, rects, response);
 db2.collection(DB_COLLECTION2).find().toArray(function (error, result) {
 if (error) return console.log(error);
         myRooms = result;
-        response.render('roomsOverview', {})      
-        
+        response.render('roomsOverview', {})              
       });
     }
 }
@@ -313,21 +315,25 @@ app.get('/user/password/update/', (request, response) => {
     app.get('/ground/load', (request,response) => {
         
         response.render('ground', {});
-        console.log(myRooms);
+        // console.log(myRooms);
     });
 
     //Weiterleiten zur Buchung
 
-    app.get('/user/getBooking', (request, response) => {
+    app.get('/user/getBooking/:roomname', (request, response) => {
+        const roomname = request.params.roomname;
+        console.log('name: ' + roomname);
         response.render('booking', {
             'username': request.session.username,
+            'roomname': roomname
+            
         });
     });
 
     //Bestätigen der Raumbuchung
 
-    app.post('/user/booking/finished', (request, response) => {
-        var roomname = request.body.roomNumber;
+    app.post('/user/booking/finished/:roomname', (request, response) => {
+        var roomname = request.params.roomname;
         var coordinateX;
         var coordinateY;
         var coordinateW;
@@ -350,9 +356,10 @@ app.get('/user/password/update/', (request, response) => {
             return;
         }
         else {
-
+            console.log('Gonna look for ' +  roomname);
             db2.collection(DB_COLLECTION2).findOne({'roomname': roomname}, (error, result) => {
                 //console.log(result);
+                console.log('found ' + result);
                 if (error) {
                     bookingErrors.push("Dieser Raum ist nicht verfügbar.");
                     response.render('errors', {'error': bookingErrors}); 
@@ -386,12 +393,12 @@ app.get('/user/password/update/', (request, response) => {
                         console.log("Erfolgreiches Update!");
                         console.log(newRoom);
                         console.log(result);
+                        
+                                    response.render('start', {
+                                        'username': request.session.username,
+                                    });
                     });
                 }
-            });
-
-            response.render('start', {
-                'username': request.session.username,
             });
         }
     });
@@ -404,7 +411,7 @@ app.get('/user/password/update/', (request, response) => {
             var localResult = result;
             var bookedRooms = [];
             var i = 0;
-            while (i <= localResult.length) {
+            while (i < localResult.length) {
                 if (localResult[i].user == request.session.username) {
                     bookedRooms.push(localResult[i]);
                 }

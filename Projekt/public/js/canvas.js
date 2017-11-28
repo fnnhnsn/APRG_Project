@@ -92,7 +92,10 @@ function init() {
         background_canvas.onclick = function() {
             if(hoveredRect.status == 'free' && hoveredRect.interactable) {
                 console.log("clicking: " + hoveredRect.roomname);
-                window.location.replace('/user/getBooking');
+                // var xhttp = new XMLHttpRequest;
+                // xhttp.open('GET', '/user/getBooking/'+hoveredRect.roomname, true);
+                // xhttp.send();
+                window.location.replace('/user/getBooking/'+ hoveredRect.roomname);
                 hoveredRect.status = 'booked';
                 repaint(x,y);
             }

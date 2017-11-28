@@ -10,7 +10,7 @@
     <body>
         <h1>Raum buchen </h1>
         <br>
-        <form action="/user/booking/finished" method="POST">
+        <form action="/user/booking/finished/<%=roomname%>" method="POST">
             <table> 
                 <tr>
                     <td>Benutzername:</td>
@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td>Raumnummer:</td>
-                    <td><input type="text" name="roomNumber" placeholder="z.B. E49" /></td>
+                    <td><input type="text" name="roomname" value="<%=roomname%>" disabled /></td>
                 </tr>
                     <td colspan="2" style="text-align: right;">
                         <button type="submit">Raum reservieren</button>
