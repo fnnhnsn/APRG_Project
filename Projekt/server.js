@@ -120,24 +120,6 @@ app.post('/users/register', (request, response) => {
     });
 });
 
-/*//Testregistrierung
-app.post('/users/test', (request, response) => {
-    const testUsername = request.body.testUsername;
-    const testPassword = request.body.testPassword;
-    const testRepPassword = request.body.testRepPassword;
-
-    const newTestUser = {
-        'testUsername': testUsername,
-        'TestPassword': testPassword
-    }
-    
-    db2.collection(DB_COLLECTION2).save(newTestUser, (error, result) => {
-    if (error) return console.log(error);
-        console.log('user added to database');
-        response.redirect('/');
-    });
-});*/
-
 //Login; Wenn Benutzername oder Passwort falsch, Fehlermeldung
 app.post('/users/login', (request, response) => {
    const username = request.body.username;
@@ -322,7 +304,7 @@ app.get('/user/password/update/', (request, response) => {
 
     app.get('/user/getBooking/:roomname', (request, response) => {
         const roomname = request.params.roomname;
-        console.log('name: ' + roomname);
+        //console.log('name: ' + roomname);
         response.render('booking', {
             'username': request.session.username,
             'roomname': roomname
@@ -342,39 +324,22 @@ app.get('/user/password/update/', (request, response) => {
         var id;
         var username = request.session.username;
 
-        let bookingErrors = [];
-
-        if(roomname == "") {
-            bookingErrors.push("Bitte geben Sie eine Raumnummer an.");
-        }
-
-
-
-        if (bookingErrors.length > 0) {
-
-            response.render('errors', {'error': bookingErrors}); 
-            return;
-        }
-        else {
-            console.log('Gonna look for ' +  roomname);
+        
+            //console.log('Gonna look for ' +  roomname);
             db2.collection(DB_COLLECTION2).findOne({'roomname': roomname}, (error, result) => {
                 //console.log(result);
-                console.log('found ' + result);
-                if (error) {
-                    bookingErrors.push("Dieser Raum ist nicht verfügbar.");
-                    response.render('errors', {'error': bookingErrors}); 
-                }
-                else {
+                //console.log('found ' + result);
+                if(error) return console.log(error);
                     coordinateX = result.x;
                     coordinateY = result.y;
                     coordinateW = result.w;
                     coordinateH = result.h;
                     roomStatus = "booked";
                     id = result._id;
-                    console.log("Hier kommt der gefundene Raum:");
+                    /*console.log("Hier kommt der gefundene Raum:");
                     console.log(result);
                     console.log("Hier die x Koordinate:");
-                    console.log(coordinateX);
+                    console.log(coordinateX);*/
 
                     const newRoom = {
                         'x': coordinateX,
@@ -386,21 +351,19 @@ app.get('/user/password/update/', (request, response) => {
                         'interactable': "false",
                         'user': username
                     }
-                    console.log("Hier die x Koordinate nochmal:");
-                    console.log(coordinateX);
+                    /*console.log("Hier die x Koordinate nochmal:");
+                    console.log(coordinateX);*/
         
                     db2.collection(DB_COLLECTION2).update({'_id': id}, newRoom , (error, result) => {
-                        console.log("Erfolgreiches Update!");
-                        console.log(newRoom);
-                        console.log(result);
+                        // console.log("Erfolgreiches Update!");
+                        // console.log(newRoom);
+                        // console.log(result);
                         
                                     response.render('start', {
                                         'username': request.session.username,
                                     });
                     });
-                }
             });
-        }
     });
 
     //Aufrufen der Raumlöschseite
@@ -417,7 +380,7 @@ app.get('/user/password/update/', (request, response) => {
                 }
                 i++;
             }
-            console.log(bookedRooms);
+            //console.log(bookedRooms);
             response.render('bookedRooms', { 'rooms': bookedRooms});
         });   
     });
