@@ -234,7 +234,7 @@ if (error) return console.log(error);
     }
 }
 
-app.post('/rooms', (request, response) => {
+app.get('/rooms', (request, response) => {
     var rects = [
             {x:169, y:336, w:15, h:11, roomname:'e27', status: 'free', interactable: false, user: ""},
             {x:169, y:360, w:15, h:15, roomname:'e28', status: 'free', interactable: false, user: ""},
@@ -279,7 +279,7 @@ app.get('/user/password/update/', (request, response) => {
     //Passwort ändern
     app.post('/user/password/update/finished', (request, response) => {
         const newPW = request.body.password;
-        const repeatNewPW = request.body.password;
+        const repeatNewPW = request.body.repPassword;
         const newPWencrypted = passwordHash.generate(newPW);
     
         let updateErrors = [];
