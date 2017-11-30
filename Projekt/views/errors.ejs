@@ -1,17 +1,26 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link href="/CSS/stylesheet.css" rel="stylesheet" type="text/css"> 
         <title>Fehler</title>
     </head>
     <body>
-        Folgende Fehler sind aufgetreten:
-        <br>
-        <ul>
-            <% for(var i = 0; i < error.length; i++) { %>
-                <li><%= error[i]%></li>
-            <% } %>
-        </ul>
-        <br>
-        <a href="/">Zurück zum Start</a>
+        <a href="/">
+            <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
+        </a>
+        <div id = "schrift">
+            <div id="header">
+                <h1>HAW Raumbuchungssystem</h1>
+            </div>
+            Folgende Fehler sind aufgetreten:
+            <br>
+            <ul>
+                <% for(var i = 0; i < error.length; i++) { %>
+                    <li><%= error[i]%></li>
+                <% } %>
+            </ul>
+            <br>
+            <a href="/">Zurück zum Start</a>
+        </div>
     </body>
 </html>
