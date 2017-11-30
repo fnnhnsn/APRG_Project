@@ -1,18 +1,35 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link href="/CSS/stylesheet.css" rel="stylesheet" type="text/css">
         <title>Start</title>
     </head>
     <body>
-        <h1>Erfolgreicher Login! </h1>
-        <br>
-        Hier kann nun der ganze Shit für den Spaß, den wir so veranstalten wollen, zugeschnitten auf den Nutzer <%= username %>. 
-        <br>
-        <br>
-        <a href ="/rooms">Raumbuchung</a> 
-        <br>
-        <a href = "/userInformation">Benutzerübersicht</a>
-        <br>
-        <a href="/logout">Ausloggen</a>
+        <a href="/">
+            <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
+        </a>
+        <div id = "schrift">
+            <div class="dropdown">
+                <button class="dropbtn">Menü</button>
+                    <div class="dropdown-content">
+                        <a href="/rooms">Raumbuchung</a>
+                        <a href="/userInformation">Benutzerübersicht</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+            </div>
+            <div id="header">
+                <h1>HAW Raumbuchungssystem</h1>
+            </div>
+            <h1>Erfolgreicher Login! </h1>
+            <br>
+            Hier kann nun der ganze Shit für den Spaß, den wir so veranstalten wollen, zugeschnitten auf den Nutzer <%= username %>. 
+            <br>
+            <br>
+            <a href ="/rooms">Raumbuchung</a> 
+            <br>
+            <a href = "/userInformation">Benutzerübersicht</a>
+            <br>
+            <a href="/logout">Ausloggen</a>
+        </div>
     </body>
 </html>
