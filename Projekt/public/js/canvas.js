@@ -5,7 +5,6 @@ var rects = null;
 var background_canvas;
 var bg_ctx;
 var hoveredRect;
-//var allowClick = false;
 
 function repaint(x,y) {
     var i = 0;
@@ -33,7 +32,6 @@ function repaint(x,y) {
         {
             bg_ctx.fillStyle = 'red';
         }
-        // bg_ctx.fillStyle = bg_ctx.isPointInPath(x,y) ? "blue" : "green";
         bg_ctx.fill();
     }
 }
@@ -92,9 +90,6 @@ function init() {
         background_canvas.onclick = function() {
             if(hoveredRect.status == 'free' && hoveredRect.interactable) {
                 console.log("clicking: " + hoveredRect.roomname);
-                // var xhttp = new XMLHttpRequest;
-                // xhttp.open('GET', '/user/getBooking/'+hoveredRect.roomname, true);
-                // xhttp.send();
                 window.location.replace('/user/getBooking/'+ hoveredRect.roomname);
                 hoveredRect.status = 'booked';
                 repaint(x,y);

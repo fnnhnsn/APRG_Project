@@ -1,15 +1,39 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link href="/CSS/stylesheet.css" rel="stylesheet" type="text/css">
+        <div id = "schrift">
+        <a href="/rooms">zurück zur Raumübersicht</a>
+        <br>
+        <br>
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <title>Canvas-Test</title>
     </head> 
     <body>
+            <a href="/">
+                <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
+                </a>
+            <div id = "schrift">
+                    <div class="dropdown">
+                            <button class="dropbtn">Menü</button>
+                            <div class="dropdown-content">
+                              <a href="/rooms">Raumbuchung</a>
+                              <a href="/userInformation">Benutzerübersicht</a>
+                              <a href="/logout">Logout</a>
+                            </div>
+                          </div>
+            <div id="header">
+            <h1>HAW Raumbuchungssystem</h1>
+            </div>
+        <br>
+        <br>
+        <div align="center">
         <span id="x"></span>X<span id="y"></span>Y
         <div style="position: relative">
             <img id="myImg" src="/images/erdgeschoss.png" width="640" height="480" style="position: absolute; top: 0px; left: 0px"/>
             <canvas id="canvas" width="640" height="480" onmousemove="mouse(event)" style="position: absolute; top: 0px; left: 0px;"></canvas>
         </div>
         <script src="/js/canvas.js"></script>
+    
     </body>
 </html>
