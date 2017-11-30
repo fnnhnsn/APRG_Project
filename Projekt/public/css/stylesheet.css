@@ -32,10 +32,11 @@ h2 {
     position: fixed;
     margin: 0;
     background-color: rgb(255, 255, 255);
-    padding: 20px;
-    top:0px;
+    border-radius:20px; 
+    padding: 25px;
+    top:-20px;
     left: 0px; 
-    width: 100%;
+    width: 96.2%;
     text-align: center;
     
 }
