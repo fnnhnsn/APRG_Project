@@ -5,21 +5,23 @@
         <title>Räume</title>
     </head>
     <body>
-        <a href="/">
-            <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
-        </a>
         <div id = "schrift">
-            <div class="dropdown">
-                <button class="dropbtn">Menü</button>
+            <div id="header">
+                <div class="dropdown">
+                    <button class="dropbtn">Menü</button>
                     <div class="dropdown-content">
                         <a href="/rooms">Raumbuchung</a>
                         <a href="/userInformation">Benutzerübersicht</a>
                         <a href="/logout">Logout</a>
                     </div>
                 </div>
-                <div id="header">
-                    <h1>HAW Raumbuchungssystem</h1>
-                </div>
+                <br>
+                <h1>HAW Raumbuchungssystem</h1>
+                    <a href="/">
+                        <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
+                    </a>
+            </div>
+            <br><br><br><br><br><br><br><br>
             <table>
                 <% for (let i=0; i < rooms.length; i++) { %>
                     <tr>
