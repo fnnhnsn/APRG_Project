@@ -5,6 +5,7 @@
         <title>Räume</title>
     </head>
     <body>
+            <div id ="form-wrapper">
         <div id = "schrift">
             <div id="header">
                 <div class="dropdown">
@@ -29,14 +30,16 @@
                         <td> <%= rooms[i].user %></td>
                         <td> <%= rooms[i].status %></td>
                         <td> 
+
                             <form action= "<%= "/delete/" + rooms[i]._id%>" method = "post"> 
-                                <button type = "submit">Löschen
+                                <button type = "submit">Remove
                                 </button>
                             </form>
                         </td>
                     </tr>
                 <% } %>
             </table>
+        </div>
         </div>
     </body>
 </html>

@@ -2,6 +2,9 @@
 <html>
     <head>
         <link href="/CSS/stylesheet.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+        @import url("stylesheet.css");
+        </style>
         <title>Login</title>
     </head>
     <body>
@@ -13,11 +16,12 @@
             <img id = "Logo" src = "/images/haw.png" alt = "HAW Logo"/>
         </a>
         </div>
-        <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
         <h2>Login</h2>
         <br>
         Bitte loggen Sie sich mit Ihrem Benutzernamen und Ihrem Passwort ein.
-        <br>
+        <br><br><br>
+		<div id ="form-wrapperL">
         <form action="/users/login" method="POST">
             <table>
                 <tr>
@@ -32,11 +36,12 @@
                 </tr>
                 <tr>
                     <td>
-                    <button type="submit">Einloggen</button>
+                    <button type="submit">Login</button>
                     </td>
                 </tr>
             </table>
         </form>
      </div>
+	</div>
     </body>
 </html>
